@@ -56,23 +56,27 @@ public class Organization {
         return node;  // No balancing needed
     }
 
-
-    Employee insert(Employee node, Employee newEmp) {
-        if (node == null) return newEmp;
-
-        if (newEmp.salary < node.salary)
-            node.left = insert(node.left, newEmp);
-        else
-            node.right = insert(node.right, newEmp);
-        node.height = 1 + Math.max(height(node.left), height(node.right)); // Important step!
-        return rebalance(node);
-    }
-
-    // Why does it have to return boolean? When to return false?
     boolean addEmployee(String name, int salary, IT pos) {
         Employee newEmp = new Employee(name, salary, pos);
-        root = insert(root, newEmp);
+        if (contains(root, newEmp)) {
+            System.out.println("Employee " + name + " already exists");
+            return false;
+        }
+        root = insertAndRebalance(root, newEmp);
         return true;
+    }
+
+    boolean contains(Employee node, Employee target) {
+        if (node == null) return false;
+        if (node.name.equals(target.name) && node.salary == target.salary && node.pos == target.pos) return true;
+        return contains(node.left, target) || contains(node.right, target);
+    }
+
+    Employee insertAndRebalance(Employee node, Employee newEmp) {
+        if (node == null) return newEmp;
+        if (newEmp.salary < node.salary) node.left = insertAndRebalance(node.left, newEmp);
+        else node.right = insertAndRebalance(node.right, newEmp);
+        return rebalance(node);
     }
 
     Employee delete(Employee node, String name) {

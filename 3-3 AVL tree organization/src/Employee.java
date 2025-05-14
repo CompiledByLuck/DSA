@@ -9,8 +9,5 @@ public class Employee {
         this.name = name;
         this.salary = salary;
         this.pos = pos;
-        this.height = 0;
     }
-
-
 }
