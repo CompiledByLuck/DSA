@@ -214,13 +214,13 @@ class Main {
         for (Employee e : levels)
             System.out.println(e.name);
 
-        // Test getSiblings method for Bob (should return Diana)
+        // Test getSiblings method for Bob
         Employee bro = org.getSiblings(org.root, "Bob");
         if (bro != null) {
             System.out.println("Sibling of Bob: " + bro.name);  // Should print Diana
         }
 
-        // Test getSiblings method for Charlie (who has no sibling)
+        // Test getSiblings method for Charlie
         bro = org.getSiblings(org.root, "Charlie");
         if (bro != null) {
             System.out.println("Sibling of Charlie: " + bro.name);
@@ -234,5 +234,7 @@ class Main {
         List<Employee> afterDel = org.inOrder(org.root, new ArrayList<>());
         for (Employee e : afterDel)
             System.out.println(e.name);
+
+        System.out.println(org.isPresent(org.root, "Charlie"));
     }
 }
